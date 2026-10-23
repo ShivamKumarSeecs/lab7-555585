@@ -1,0 +1,133 @@
+// Shivam Kumar 555585
+// BSCS-15-D
+
+#include <iostream>
+using namespace std;
+
+class ArrayDeque {
+private:
+	int items[5];
+	int head;
+	int tail;
+public:
+	ArrayDeque() {
+		head = -1;
+		tail = -1;
+	};
+
+	bool IsEmpty() {
+		return head == -1;
+	};
+
+	bool IsFull() {
+		return (tail + 1) % 5 == head;
+	};
+
+	void InsertFront(int value) {
+		if (IsFull()) {
+			cout << "Queue is exceeding capacity" << endl;
+			return;
+		}
+		if (IsEmpty()) {
+			head = 0;
+			tail = 0;
+		}
+		else {
+			head = (head - 1 + 5) % 5;
+		}
+		items[head] = value;
+	};
+
+	void InsertRear(int value) {
+		if (IsFull()) {
+			cout << "Queue is exceeding capacity" << endl;
+			return;
+		}
+		if (IsEmpty()) {
+			head = 0;
+			tail = 0;
+		}
+		else {
+			tail = (tail + 1) % 5;
+		}
+		items[tail] = value;
+	};
+
+	void DeleteFront() {
+		if (IsEmpty()) {
+			cout << "Queue is empty" << endl;
+			return;
+		}
+		cout << "Deleted Front: " << items[head] << endl;
+		if (head == tail) {
+			head = -1;
+			tail = -1;
+		}
+		else {
+			head = (head + 1) % 5;
+		}
+	};
+
+	void DeleteRear() {
+		if (IsEmpty()) {
+			cout << "Queue is empty" << endl;
+			return;
+		}
+		cout << "Deleted Rear: " << items[tail] << endl;
+		if (head == tail) {
+			head = -1;
+			tail = -1;
+		}
+		else {
+			tail = (tail - 1 + 5) % 5;
+		}
+	};
+
+	void Display() {
+		if (IsEmpty()) {
+			cout << "Queue empty" << endl;
+			return;
+		}
+		cout << "HEAD" << endl;
+		int i = head;
+		while (true) {
+			cout << items[i] << endl;
+			if (i == tail) break;
+			i = (i + 1) % 5;
+		}
+		cout << "TAIL" << endl;
+	};
+};
+
+int main() {
+	ArrayDeque q1;
+	q1.InsertRear(20);
+	q1.InsertFront(10);
+	q1.InsertRear(30);
+	q1.Display();
+
+	q1.DeleteRear();
+	q1.DeleteFront();
+	q1.Display();
+
+	q1.InsertFront(5);
+	q1.InsertRear(30);
+	q1.InsertRear(40);
+	q1.InsertFront(1);
+	q1.Display();
+
+	q1.InsertFront(100);
+	q1.InsertRear(200);
+
+	ArrayDeque q2;
+	q2.InsertRear(50);
+	q2.DeleteFront();
+	q2.DeleteFront();
+
+	ArrayDeque q3;
+	q3.InsertRear(50);
+	q3.DeleteRear();
+	q3.DeleteRear();
+
+	return 0;
+}
